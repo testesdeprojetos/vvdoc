@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprovação de Entrega</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; }
+        .assinatura { margin-top: 20px; padding: 20px; border-top: 1px solid #000; text-align: center; }
+        button { display: block; margin: 20px auto; padding: 10px 20px; }
+        @media print {
+            button { display: none; }
+        }
+        .modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 1px solid #ddd; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); }
+        .modal label { display: block; font-weight: bold; margin-top: 10px; }
+        .modal input { display: block; width: 100%; margin-bottom: 10px; padding: 5px; }
+        .modal-buttons { display: flex; justify-content: space-between; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .row { display: flex; gap: 10px; }
+        .row input { flex: 1; }
+        .small-input { width: 40%; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Comprovação de Entrega</h2>
+        
+        <h3>Notas Fiscais Registradas</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Destinatário</th>
+                    <th>Número da NF</th>
+                    <th>Peso</th>
+                    <th>Valor</th>
+                    <th>Volumes</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaNFs">
+                <!-- Dados inseridos aqui dinamicamente -->
+            </tbody>
+        </table>
+        
+        <h3>Assinaturas:</h3>
+        <div class="assinatura">Recebido por: ________________________</div>
+        <div class="assinatura">Entregador: ________________________</div>
+        <div class="assinatura">Testemunha: ________________________</div>
+        
+        <button onclick="window.print()">Imprimir</button>
+        <button onclick="abrirModal()">Adicionar Nota Fiscal</button>
+    </div>
+
+    <div id="modal" class="modal">
+        <h3>Inserir Dados da Nota Fiscal</h3>
+        <div class="row">
+            <div>
+                <label>Número de Série da NF</label>
+                <input type="text" id="serie" class="small-input">
+            </div>
+            <div>
+                <label>Número da NF</label>
+                <input type="text" id="nfNumero">
+            </div>
+        </div>
+        <label>Remetente (CNPJ)</label>
+        <input type="text" id="remetente">
+        <label>Destinatário (CNPJ)</label>
+        <input type="text" id="destinatario">
+        <label>Valor</label>
+        <input type="text" id="valor">
+        <label>Quantidade de Volumes</label>
+        <input type="text" id="quantidade">
+        <label>Peso</label>
+        <input type="text" id="peso">
+        
+        <div class="modal-buttons">
+            <button onclick="salvarDados()">Salvar</button>
+            <button onclick="fecharModal()">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        let notasFiscais = [];
+
+        function abrirModal() {
+            document.getElementById('modal').style.display = 'block';
+        }
+
+        function fecharModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        function formatarCNPJ(cnpj) {
+            return cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
+        }
+
+        function formatarMoeda(valor) {
+            return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
+        }
+
+        function salvarDados() {
+            const serie = document.getElementById('serie').value;
+            const nfNumero = document.getElementById('nfNumero').value;
+            const remetente = formatarCNPJ(document.getElementById('remetente').value);
+            const destinatario = formatarCNPJ(document.getElementById('destinatario').value);
+            const valor = formatarMoeda(document.getElementById('valor').value);
+            const quantidade = document.getElementById('quantidade').value;
+            const peso = document.getElementById('peso').value;
+
+            if (notasFiscais.some(nf => nf.nfNumero === nfNumero)) {
+                alert("Nota fiscal já inserida!");
+                return;
+            }
+            
+            const novaNF = { serie, nfNumero, remetente, destinatario, valor, quantidade, peso };
+            notasFiscais.push(novaNF);
+            atualizarTabela();
+            fecharModal();
+        }
+
+        function excluirNota(nfNumero) {
+            notasFiscais = notasFiscais.filter(nf => nf.nfNumero !== nfNumero);
+            atualizarTabela();
+        }
+
+        function atualizarTabela() {
+            const tabela = document.getElementById("tabelaNFs");
+            tabela.innerHTML = "";
+            
+            const agrupadoPorDestinatario = {};
+            notasFiscais.forEach(nf => {
+                if (!agrupadoPorDestinatario[nf.destinatario]) {
+                    agrupadoPorDestinatario[nf.destinatario] = [];
+                }
+                agrupadoPorDestinatario[nf.destinatario].push(nf);
+            });
+            
+            for (const destinatario in agrupadoPorDestinatario) {
+                const grupoNFs = agrupadoPorDestinatario[destinatario];
+                tabela.innerHTML += `<tr><td colspan="6" style="background-color: #e0e0e0; font-weight: bold;">${destinatario}</td></tr>`;
+                grupoNFs.forEach(nf => {
+                    const row = `<tr>
+                        <td></td>
+                        <td>${nf.nfNumero}</td>
+                        <td>${nf.peso}</td>
+                        <td>${nf.valor}</td>
+                        <td>${nf.quantidade}</td>
+                        <td><button onclick="excluirNota('${nf.nfNumero}')">Excluir</button></td>
+                    </tr>`;
+                    tabela.innerHTML += row;
+                });
+            }
+        }
+    </script>
+</body>
+</html>

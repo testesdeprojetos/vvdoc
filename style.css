@@ -1,0 +1,53 @@
+.vertical {
+    display:inline-block;
+}
+
+body { font-family: Arial, sans-serif; margin: 20px; }
+#container { width: 75%; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd;}
+.assinatura { margin-top: 10px; padding: 20px; text-align: center;}
+button { display: block; margin: 20px auto; padding: 10px 20px; }
+    @media print {
+        button { display: none; }
+        }
+.modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 1px solid #ddd; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); }
+.modal label { display: block; font-weight: bold; margin-top: 10px; }
+.modal input { display: block; width: 100%; margin-bottom: 10px; padding: 5px; }
+.modal-buttons { display: flex; justify-content: space-between; }
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+th, td { border: 1px ; padding: 8px; text-align: left; }
+th { background-color: #f2f2f2; }
+.row { display: flex; gap: 10px; }
+.row input { flex: 1; }
+.small-input { max-width: 40%; }
+.normal-input { width: 100%; }
+.cabecalho{
+    text-align: center;
+    margin: 0%;
+    padding: 0.2%;
+    font-size: 50%;
+}
+.inputInformacoes {
+    width: 100%;
+    border-style: none;
+}
+#invisivel{
+    border: none;
+    background: none;
+}
+
+
+
+@media print {
+    ::-webkit-input-placeholder { /* WebKit browsers */
+        color: transparent;
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: transparent;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: transparent;
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10+ */
+        color: transparent;
+    }
+}
