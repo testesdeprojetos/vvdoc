@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprovação de Entrega</title>
+    <script src="TESTE.js"></script>
+    <link rel="stylesheet" href="TESTE.css">
+</head>
+<body>
+    <div class="container">
+        
+        <h6 class="cabecalho">NOVA LUZ TRANSPORTES LTDA.</h6>
+        <P class="cabecalho">RUA CONSUELO LEANDRO DUTRA 345 – JABOATÃO DOS GUARARAPES/PE
+        TEL: (81) 3472-0470
+        I. EST: 0397273-94
+        CNPJ/MF: 11.778.704/0001-06</P>
+        
+        <hr>
+
+        <h2>Número: <input type="text" placeholder="000" style="border: none;"></h2>
+        
+        <table>
+            <tr>
+                <td><strong>Motorista:</strong> <span id="motorista">
+                    <input type="text" class="inputInformacoes" placeholder="Inserir nome do motorista">
+                </span></td>
+                <td><strong>Data da Viagem:</strong> <span id="dataViagem">
+                    <input type="text" class="inputInformacoes" placeholder="Inserir data">
+                </span></td>
+            </tr>
+            <tr>
+                <td><strong>Endereço:</strong> <span id="endereco">
+                    <input type="text" class="inputInformacoes" placeholder="Inserir endereço do motorista">
+                </span></td> 
+                <td><strong>Veículo:</strong> <span id="veiculo">
+                    <input type="text" class="inputInformacoes" placeholder="Inserir placa do veículo">
+                </span></td>
+            </tr>
+                <td><strong>Habilitação:</strong> <span id="habilitacao">
+                    <input type="text" class="inputInformacoes" placeholder="Inserir habilitação do motorista">
+                </span></td>
+                <td><strong>Prop. do Veículo:</strong> <span id="proprietario">
+                    <input type="text" class="inputInformacoes" placeholder="Inserir proprietário do veículo">
+                </span></td>
+            </tr>
+                <td><strong>CPF:</strong> <span id="cpf">
+                    <input type="text" class="inputInformacoes" placeholder="Inserir CPF do motorista">
+                </span></td>
+                <td><strong>Telefone:</strong> <span id="telefone">
+                    <input type="text" class="inputInformacoes" placeholder="Inserir telefone para contato">
+                </span></td>
+        </table>
+
+        <hr>
+        
+        <h3>Notas Fiscais Registradas</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Destinatário</th>
+                    <th>Número da NF</th>
+                    <th>Peso</th>
+                    <th>Valor</th>
+                    <th>Volumes</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaNFs"></tbody>
+        </table>
+
+        <button onclick="abrirModal()">Adicionar Nota Fiscal</button>
+        
+        <h3>Assinaturas:</h3>
+        <div class="assinatura">
+            <p>Motorista (nome legível): _________________________________</p>
+            <p>_____/_____/__________, ________________________________</p>
+        </div>
+        <div class="assinatura">
+            <p>Conferente (nome legível): _________________________________</p>
+            <p>_____/_____/__________, ________________________________</p>
+        </div>
+        <div class="assinatura">
+            <p>Operacional (nome legível): _________________________________</p>
+            <p>_____/_____/__________, ________________________________</p>
+        </div>
+        
+        <button onclick="window.print()">Imprimir</button>
+
+    </div>
+
+    <div id="modal" class="modal">
+        <h3>Inserir Dados da Nota Fiscal</h3>
+        <div class="row">
+            <div>
+                <label>Número de Série da NF</label>
+                <input type="text" id="serie" class="small-input">
+            </div>
+            <div>
+                <label>Número da NF</label>
+                <input type="text" id="nfNumero">
+            </div>
+        </div>
+        <label>Remetente (CNPJ)</label>
+        <input type="text" id="remetente">
+        <label>Destinatário (CNPJ)</label>
+        <input type="text" id="destinatario">
+        <label>Valor</label>
+        <input type="text" id="valor">
+        <label>Quantidade de Volumes</label>
+        <input type="text" id="quantidade">
+        <label>Peso</label>
+        <input type="text" id="peso">
+        
+        <div class="modal-buttons">
+            <button onclick="salvarDados()">Salvar</button>
+            <button onclick="fecharModal()">Fechar</button>
+        </div>
+    </div>
+
+</body>
+</html>
