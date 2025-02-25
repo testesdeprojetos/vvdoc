@@ -24,7 +24,8 @@ let notasFiscais = [];
             const serie = document.getElementById('serie').value;
             const nfNumero = document.getElementById('nfNumero').value;
             const remetente = formatarCNPJ(document.getElementById('remetente').value);
-            const destinatario = formatarCNPJ(document.getElementById('destinatario').value);
+            const destinatario = document.getElementById('destinatario').value;
+            const destRazaoSocial = document.getElementById('destRazaoSocial').value;
             const valor = formatarMoeda(document.getElementById('valor').value);
             const quantidade = document.getElementById('quantidade').value;
             const peso = document.getElementById('peso').value;
@@ -34,7 +35,7 @@ let notasFiscais = [];
                 return;
             }
             
-            const novaNF = { serie, nfNumero, remetente, destinatario, valor, quantidade, peso };
+            const novaNF = { serie, nfNumero, remetente, destinatario, destRazaoSocial, valor, quantidade, peso };
             notasFiscais.push(novaNF);
             atualizarTabela();
             fecharModal();
@@ -51,15 +52,15 @@ let notasFiscais = [];
             
             const agrupadoPorDestinatario = {};
             notasFiscais.forEach(nf => {
-                if (!agrupadoPorDestinatario[nf.destinatario]) {
-                    agrupadoPorDestinatario[nf.destinatario] = [];
+                if (!agrupadoPorDestinatario[nf.destRazaoSocial]) {
+                    agrupadoPorDestinatario[nf.destRazaoSocial] = [];
                 }
-                agrupadoPorDestinatario[nf.destinatario].push(nf);
+                agrupadoPorDestinatario[nf.destRazaoSocial].push(nf);
             });
             
-            for (const destinatario in agrupadoPorDestinatario) {
-                const grupoNFs = agrupadoPorDestinatario[destinatario];
-                tabela.innerHTML += `<tr><td colspan="6" style="background-color: #e0e0e0; font-weight: bold;">${destinatario}</td></tr>`;
+            for (const destRazaoSocial in agrupadoPorDestinatario) {
+                const grupoNFs = agrupadoPorDestinatario[destRazaoSocial];
+                tabela.innerHTML += `<tr><td colspan="6" style="background-color: #e0e0e0; font-weight: bold;">${destRazaoSocial} (${formatarCNPJ(destinatario.value)})</td></tr>`;
                 grupoNFs.forEach(nf => {
                     const row = `<tr>
                         <td></td>
@@ -112,28 +113,32 @@ let notasFiscais = [];
             const enderecoMotorista = document.getElementById('endereco');
             const habilitacaoMotorista = document.getElementById('habilitacao');
             const cpfMotorista = document.getElementById('cpf');
-            //window.alert(motoristaSelecionado);
 
             switch(motoristaSelecionado) {
                 case '0':
                     window.alert("Ops, você não selecionou um motorista...");
                 break;
                 case '1':
-                    window.alert("EDVALDO");
-
-
+                    nomeMotorista.textContent = "Edvaldo";
+                    enderecoMotorista.textContent = "Rua Consuelo Leandro Dutra, nº 345 - Jaboatão dos Guararapes/PE";
+                    habilitacaoMotorista.textContent = "";
+                    cpfMotorista.textContent = "";
+                    fecharModalSelMotorista()
+                    
                     fecharModalSelMotorista()
                 break;
                 case '2':
-                    window.alert("JOSINALDO");
-
-
+                    nomeMotorista.textContent = "Josinaldo";
+                    enderecoMotorista.textContent = "Rua Consuelo Leandro Dutra, nº 345 - Jaboatão dos Guararapes/PE";
+                    habilitacaoMotorista.textContent = "";
+                    cpfMotorista.textContent = "";
+                    fecharModalSelMotorista()
+                    
                     fecharModalSelMotorista()
                 break;
                 case '3':
-                    window.alert("WILSON");
                     nomeMotorista.textContent = "Jose Wilson Sales da Silva";
-                    enderecoMotorista.textContent = "Rua do Cajueiro 243, Jaboatao dos Guararapes/PE, CEP 54330-200";
+                    enderecoMotorista.textContent = "Rua Consuelo Leandro Dutra, nº 345 - Jaboatão dos Guararapes/PE";
                     habilitacaoMotorista.textContent = "2761201062/AE";
                     cpfMotorista.textContent = "041.561.634-40";
                     fecharModalSelMotorista()
@@ -142,8 +147,8 @@ let notasFiscais = [];
                 break;
                 case '4':
                     nomeMotorista.textContent = "Filipe Viana Paiva";
-                    enderecoMotorista.textContent = "Rua José de Alencar, 25";
-                    habilitacaoMotorista.textContent = "000000000";
+                    enderecoMotorista.textContent = "Rua Consuelo Leandro Dutra, nº 345 - Jaboatão dos Guararapes/PE";
+                    habilitacaoMotorista.textContent = "";
                     cpfMotorista.textContent = "709.236.094-31";
                     fecharModalSelMotorista()
                 break;

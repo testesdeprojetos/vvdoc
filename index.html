@@ -10,7 +10,7 @@
 <body>
     <div id="container">
         
-        <h6 class="cabecalho">NOVA LUZ TRANSPORTES LTDA.</h6>
+        <h6 class="cabecalho" style="font-size: smaller;">NOVA LUZ TRANSPORTES LTDA.</h6>
         <P class="cabecalho">RUA CONSUELO LEANDRO DUTRA 345 – JABOATÃO DOS GUARARAPES/PE
         TEL: (81) 3472-0470
         I. EST: 0397273-94
@@ -76,18 +76,23 @@
         <button onclick="abrirModal()">Adicionar Nota Fiscal</button>
         
         <h3>Assinaturas:</h3>
-        <div class="assinatura">
-            <p>Motorista (nome legível): _________________________________</p>
-            <p>_____/_____/__________, ________________________________</p>
+        <div id="campoAssinatura">
+            <div class="assinaturaDIV">
+                <p class="assinatura">________________________________</p>
+                <p class="assinatura">Assinatura Motorista</p>
+            </div>
+            <div class="assinaturaDIV">
+                <p class="assinatura">________________________________</p>
+                <p class="assinatura">Assinatura Conferente</p>
+            </div>
+            <div class="assinaturaDIV">
+                <p class="assinatura">________________________________</p>
+                <p class="assinatura">Assinatura Operacional</p>
+            </div>
         </div>
-        <div class="assinatura">
-            <p>Conferente (nome legível): _________________________________</p>
-            <p>_____/_____/__________, ________________________________</p>
-        </div>
-        <div class="assinatura">
-            <p>Operacional (nome legível): _________________________________</p>
-            <p>_____/_____/__________, ________________________________</p>
-        </div>
+        
+            
+            
         
         <button onclick="gerarDocumento()">Imprimir</button>
 
@@ -107,8 +112,10 @@
         </div>
         <label>Remetente (CNPJ)</label>
         <input type="text" id="remetente">
-        <label>Destinatário (CNPJ)</label>
+        <label>CNPJ (Destinatário)</label>
         <input type="text" id="destinatario">
+        <label>Destinatário (Razão Social)</label>
+        <input type="text" id="destRazaoSocial">
         <label>Valor</label>
         <input type="text" id="valor">
         <label>Quantidade de Volumes</label>
