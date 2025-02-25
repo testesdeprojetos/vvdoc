@@ -21,9 +21,11 @@ let notasFiscais = [];
         }
 
         function salvarDados() {
+
             const serie = document.getElementById('serie').value;
             const nfNumero = document.getElementById('nfNumero').value;
             const remetenteCNPJ = formatarCNPJ(document.getElementById('remetente').value);
+            const remetenteRazaoSocial = document.getElementById('remetenteRazaoSocial').value;
             const destinatarioCNPJ = formatarCNPJ(document.getElementById('destinatario').value);
             const destinatarioRazaoSocial = document.getElementById('destinatarioRazaoSocial').value;
             const valor = formatarMoeda(document.getElementById('valor').value);
@@ -36,7 +38,7 @@ let notasFiscais = [];
                 return;
             }
 
-            const novaNF = { serie, nfNumero, remetenteCNPJ, destinatarioCNPJ, destinatarioRazaoSocial, valor, quantidade, peso };
+            const novaNF = { serie, nfNumero, remetenteCNPJ, remetenteRazaoSocial, destinatarioCNPJ, destinatarioRazaoSocial, valor, quantidade, peso };
             notasFiscais.push(novaNF);
             atualizarTabela();
             fecharModal();
@@ -45,23 +47,6 @@ let notasFiscais = [];
         function excluirNota(serie, nfNumero, destinatarioCNPJ) {
             notasFiscais = notasFiscais.filter(nf => !(nf.serie === serie && nf.nfNumero === nfNumero && nf.destinatarioCNPJ === destinatarioCNPJ));
             atualizarTabela();
-        }
-
-        function editarNota(nfNumero) {
-            abrirModal();
-
-            notasFiscais.forEach(nf => {
-                if (nf.nfNumero == nfNumero){
-                    serie.value = nf.serie;
-                    nfNumero.value = nf.nfNumero;
-                    remetente.value = nf.remetente;
-                    destinatarioCNPJ.value = nf.destinatarioCNPJ;
-                    destinatarioRazaoSocial.value = nf.destinatarioRazaoSocial;
-                    formatarMoeda(valor.value) = formatarMoeda(nf.valor);
-                    quantidade.value = nf.quantidade;
-                    peso.value = nf.peso;
-                }
-            });
         }
 
         function atualizarTabela() {
@@ -78,15 +63,16 @@ let notasFiscais = [];
             
             for (const destinatarioCNPJ in agrupadoPorDestinatario) {
                 const grupoNFs = agrupadoPorDestinatario[destinatarioCNPJ];
-                tabela.innerHTML += `<tr><td colspan="6" style="background-color: #e0e0e0; font-weight: bold;">${destinatarioRazaoSocial.value} (${destinatarioCNPJ})</td></tr>`;
                 grupoNFs.forEach(nf => {
+                    tabela.innerHTML += `<tr><td colspan="6" style="background-color: #e0e0e0; font-weight: bold;">${nf.destinatarioRazaoSocial} (${destinatarioCNPJ})</td></tr>`;
                     const row = `<tr>
                         <td></td>
                         <td>${nf.nfNumero}</td>
+                        <td>${nf.remetenteRazaoSocial} ${nf.remetenteCNPJ}</td>
+                        <td>${nf.destinatarioRazaoSocial} ${nf.destinatarioCNPJ}</td>
                         <td>${nf.peso}</td>
                         <td>${nf.valor}</td>
                         <td>${nf.quantidade}</td>
-                        <td id="invisivel"><button onclick="editarNota('${nf.nfNumero}')">Editar</button></td>
                         <td id="invisivel"><button onclick="excluirNota('${nf.serie}', '${nf.nfNumero}', '${nf.destinatarioCNPJ}')">Excluir</button></td>
                     </tr>`;
                     tabela.innerHTML += row;

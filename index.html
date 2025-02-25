@@ -63,11 +63,13 @@
         <table>
             <thead>
                 <tr>
-                    <th>Destinatário</th>
+                    <th></th>
                     <th>Número da NF</th>
-                    <th>Peso</th>
-                    <th>Valor</th>
+                    <th>Remetente</th>
+                    <th>Destinatário</th>
                     <th>Volumes</th>
+                    <th>Kg Real</th>
+                    <th>Valor</th>
                 </tr>
             </thead>
             <tbody id="tabelaNFs"></tbody>
@@ -119,9 +121,11 @@
         </div>
         <label>Remetente (CNPJ)</label>
         <input type="text" id="remetente">
-        <label>CNPJ (Destinatário)</label>
+        <label>Razão Social (do Remetente)</label>
+        <input type="text" id="remetenteRazaoSocial">
+        <label>Destinatário (CNPJ)</label>
         <input type="text" id="destinatario">
-        <label>Destinatário (Razão Social)</label>
+        <label>Razão Social (do Destinatário)</label>
         <input type="text" id="destinatarioRazaoSocial">
         <label>Valor</label>
         <input type="text" id="valor">
@@ -148,6 +152,10 @@
 
         <button onclick="salvarSelMotorista()">Selecionar</button>
         <button onclick="fecharModalSelMotorista()">Cancelar</button>
+    </div>
+
+    <div id="modalEditarNota" class="modal">
+        <h3>Deseja editar a nota?</h3>
     </div>
 
 </body>
