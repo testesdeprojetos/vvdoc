@@ -20,6 +20,8 @@
 
         <h2>Número: <input type="text" placeholder="000" style="border: none;"></h2>
         
+        <button onclick="abrirModalSelMotorista()">Selecionar Motorista</button>
+
         <table>
             <tr>
                 <td><strong>Motorista:</strong> <span id="motorista">
@@ -118,6 +120,20 @@
             <button onclick="salvarDados()">Salvar</button>
             <button onclick="fecharModal()">Fechar</button>
         </div>
+    </div>
+
+    <div id="modalSelMotorista" class="modal">
+        <h3>Selecione o motorista:</h3>
+        <select id="selecaoMotorista">
+            <option value="0">Selecione um motorista</option>
+            <option value="1">Edvaldo</option>
+            <option value="2">Josinaldo</option>
+            <option value="3">Wilson</option>
+            <option value="4">Filipe</option>
+        </select>
+
+        <button onclick="salvarSelMotorista()">Selecionar</button>
+        <button onclick="fecharModalSelMotorista()">Cancelar</button>
     </div>
 
 </body>

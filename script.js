@@ -12,6 +12,10 @@ let notasFiscais = [];
             return cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
         }
 
+        function formatarCPF(cpf) {
+            return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+        }
+
         function formatarMoeda(valor) {
             return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
         }
@@ -90,5 +94,60 @@ let notasFiscais = [];
             containerDIV.style.top = "auto";
             containerDIV.style.left = "auto";
             containerDIV.style.maxWidth = "600px";
-            containerDIV.style.width = "75%";
+            containerDIV.style.width = "80%";
+        }
+
+
+        function abrirModalSelMotorista(){
+            document.getElementById('modalSelMotorista').style.display = 'block';
+        }
+
+        function fecharModalSelMotorista(){
+            document.getElementById('modalSelMotorista').style.display = 'none';
+        }
+
+        function salvarSelMotorista(){
+            const motoristaSelecionado = document.getElementById('selecaoMotorista').value;
+            const nomeMotorista = document.getElementById('motorista');
+            const enderecoMotorista = document.getElementById('endereco');
+            const habilitacaoMotorista = document.getElementById('habilitacao');
+            const cpfMotorista = document.getElementById('cpf');
+            //window.alert(motoristaSelecionado);
+
+            switch(motoristaSelecionado) {
+                case '0':
+                    window.alert("Ops, você não selecionou um motorista...");
+                break;
+                case '1':
+                    window.alert("EDVALDO");
+
+
+                    fecharModalSelMotorista()
+                break;
+                case '2':
+                    window.alert("JOSINALDO");
+
+
+                    fecharModalSelMotorista()
+                break;
+                case '3':
+                    window.alert("WILSON");
+                    nomeMotorista.textContent = "Jose Wilson Sales da Silva";
+                    enderecoMotorista.textContent = "Rua do Cajueiro 243, Jaboatao dos Guararapes/PE, CEP 54330-200";
+                    habilitacaoMotorista.textContent = "2761201062/AE";
+                    cpfMotorista.textContent = "041.561.634-40";
+                    fecharModalSelMotorista()
+                    
+                    fecharModalSelMotorista()
+                break;
+                case '4':
+                    nomeMotorista.textContent = "Filipe Viana Paiva";
+                    enderecoMotorista.textContent = "Rua José de Alencar, 25";
+                    habilitacaoMotorista.textContent = "000000000";
+                    cpfMotorista.textContent = "709.236.094-31";
+                    fecharModalSelMotorista()
+                break;
+                default:
+                    window.alert("nada");
+            }
         }
