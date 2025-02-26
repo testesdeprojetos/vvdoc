@@ -70,9 +70,9 @@ let notasFiscais = [];
                         <td>${nf.nfNumero}</td>
                         <td>${nf.remetenteRazaoSocial} (${nf.remetenteCNPJ})</td>
                         <td>${nf.destinatarioRazaoSocial} (${nf.destinatarioCNPJ})</td>
+                        <td>${nf.quantidade}</td>
                         <td>${nf.peso}</td>
                         <td>${nf.valor}</td>
-                        <td>${nf.quantidade}</td>
                         <td id="invisivel"><button onclick="excluirNota('${nf.serie}', '${nf.nfNumero}', '${nf.remetenteCNPJ}', '${nf.remetenteRazaoSocial}', '${nf.destinatarioCNPJ}', '${nf.destinatarioRazaoSocial}')">Excluir</button></td>
                     </tr>`;
                     tabela.innerHTML += row;
