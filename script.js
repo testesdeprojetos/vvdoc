@@ -44,8 +44,9 @@ let notasFiscais = [];
             fecharModal();
         }
 
-        function excluirNota(serie, nfNumero, remetenteCNPJ, remetenteRazaoSocial, destinatarioCNPJ, destinatarioRazaoSocial) {
-            notasFiscais = notasFiscais.filter(nf => !(nf.serie === serie && nf.nfNumero === nfNumero && nf.remetenteCNPJ === remetenteCNPJ && nf.remetenteRazaoSocial === remetenteRazaoSocial && nf.destinatarioCNPJ === destinatarioCNPJ && nf.destinatarioRazaoSocial === destinatarioRazaoSocial));
+        function excluirNota(serieExcluir, nfNumeroExcluir, remetenteCNPJExcluir, remetenteRazaoSocialExcluir, destinatarioCNPJExcluir, destinatarioRazaoSocialExcluir, valorExcluir, quantidadeExcluir, pesoExcluir) {
+            
+            notasFiscais = notasFiscais.filter(nf => !(nf.serie === serieExcluir && nf.nfNumero === nfNumeroExcluir && nf.remetenteCNPJ === remetenteCNPJExcluir && nf.remetenteRazaoSocial === remetenteRazaoSocialExcluir && nf.destinatarioCNPJ === destinatarioCNPJExcluir && nf.destinatarioRazaoSocial === destinatarioRazaoSocialExcluir));
             atualizarTabela();
         }
 
@@ -55,15 +56,15 @@ let notasFiscais = [];
             
             const agrupadoPorDestinatario = {};
             notasFiscais.forEach(nf => {
-                if (!agrupadoPorDestinatario[nf.destinatarioCNPJ]) {
-                    agrupadoPorDestinatario[nf.destinatarioCNPJ] = [];
+                if (!agrupadoPorDestinatario[nf.destinatarioRazaoSocial]) {
+                    agrupadoPorDestinatario[nf.destinatarioRazaoSocial] = [];
                 }
-                agrupadoPorDestinatario[nf.destinatarioCNPJ].push(nf);
+                agrupadoPorDestinatario[nf.destinatarioRazaoSocial].push(nf);
             });
             
-            for (const destinatarioCNPJ in agrupadoPorDestinatario) {
-                const grupoNFs = agrupadoPorDestinatario[destinatarioCNPJ];
-                tabela.innerHTML += `<tr><td colspan="6" style="background-color: #e0e0e0; font-weight: bold;">${destinatarioCNPJ}</td></tr>`;
+            for (const dest in agrupadoPorDestinatario) {
+                const grupoNFs = agrupadoPorDestinatario[dest];
+                tabela.innerHTML += `<tr><td colspan="6" style="background-color: #e0e0e0; font-weight: bold;">${dest}</td></tr>`;
                 grupoNFs.forEach(nf => {
                     const row = `<tr>
                         <td></td>
@@ -71,9 +72,9 @@ let notasFiscais = [];
                         <td>${nf.remetenteRazaoSocial} (${nf.remetenteCNPJ})</td>
                         <td>${nf.destinatarioRazaoSocial} (${nf.destinatarioCNPJ})</td>
                         <td>${nf.quantidade}</td>
-                        <td>${nf.peso}</td>
+                        <td>${nf.peso} Kg</td>
                         <td>${nf.valor}</td>
-                        <td id="invisivel"><button onclick="excluirNota('${nf.serie}', '${nf.nfNumero}', '${nf.remetenteCNPJ}', '${nf.remetenteRazaoSocial}', '${nf.destinatarioCNPJ}', '${nf.destinatarioRazaoSocial}')">Excluir</button></td>
+                        <td id="invisivel"><button onclick="excluirNota('${nf.serie}', '${nf.nfNumero}', '${nf.remetenteCNPJ}', '${nf.remetenteRazaoSocial}', '${nf.destinatarioCNPJ}', '${nf.destinatarioRazaoSocial}', '${nf.valor}', '${nf.quantidade}', '${nf.peso}')">Excluir</button></td>
                     </tr>`;
                     tabela.innerHTML += row;
                 });
@@ -128,7 +129,6 @@ let notasFiscais = [];
                     enderecoMotorista.textContent = "Rua Consuelo Leandro Dutra, nº 345 - Jaboatão dos Guararapes/PE";
                     habilitacaoMotorista.textContent = "";
                     cpfMotorista.textContent = "";
-                    fecharModalSelMotorista()
                     
                     fecharModalSelMotorista()
                 break;
@@ -137,7 +137,6 @@ let notasFiscais = [];
                     enderecoMotorista.textContent = "Rua Consuelo Leandro Dutra, nº 345 - Jaboatão dos Guararapes/PE";
                     habilitacaoMotorista.textContent = "";
                     cpfMotorista.textContent = "";
-                    fecharModalSelMotorista()
                     
                     fecharModalSelMotorista()
                 break;
@@ -146,7 +145,6 @@ let notasFiscais = [];
                     enderecoMotorista.textContent = "Rua Consuelo Leandro Dutra, nº 345 - Jaboatão dos Guararapes/PE";
                     habilitacaoMotorista.textContent = "2761201062/AE";
                     cpfMotorista.textContent = "041.561.634-40";
-                    fecharModalSelMotorista()
                     
                     fecharModalSelMotorista()
                 break;
