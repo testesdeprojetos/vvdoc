@@ -68,8 +68,8 @@ let notasFiscais = [];
                     const row = `<tr>
                         <td></td>
                         <td>${nf.nfNumero}</td>
-                        <td>${nf.remetenteRazaoSocial} ${nf.remetenteCNPJ}</td>
-                        <td>${nf.destinatarioRazaoSocial} ${nf.destinatarioCNPJ}</td>
+                        <td>${nf.remetenteRazaoSocial} (${nf.remetenteCNPJ})</td>
+                        <td>${nf.destinatarioRazaoSocial} (${nf.destinatarioCNPJ})</td>
                         <td>${nf.peso}</td>
                         <td>${nf.valor}</td>
                         <td>${nf.quantidade}</td>
