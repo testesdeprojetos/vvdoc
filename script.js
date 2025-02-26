@@ -32,7 +32,7 @@ let notasFiscais = [];
             const quantidade = document.getElementById('quantidade').value;
             const peso = document.getElementById('peso').value;
 
-            if (notasFiscais.some(nf => nf.serie === serie && nf.nfNumero === nfNumero && nf.destinatarioCNPJ === destinatarioCNPJ)) {
+            if (notasFiscais.some(nf => nf.serie === serie && nf.nfNumero === nfNumero && nf.remetenteCNPJ === remetenteCNPJ && nf.remetenteRazaoSocial === remetenteRazaoSocial && nf.destinatarioCNPJ === destinatarioCNPJ && nf.destinatarioRazaoSocial === destinatarioRazaoSocial)) {
                 
                 alert("Nota fiscal já inserida!");
                 return;
@@ -44,8 +44,8 @@ let notasFiscais = [];
             fecharModal();
         }
 
-        function excluirNota(serie, nfNumero, destinatarioCNPJ) {
-            notasFiscais = notasFiscais.filter(nf => !(nf.serie === serie && nf.nfNumero === nfNumero && nf.destinatarioCNPJ === destinatarioCNPJ));
+        function excluirNota(serie, nfNumero, remetenteCNPJ, remetenteRazaoSocial, destinatarioCNPJ, destinatarioRazaoSocial) {
+            notasFiscais = notasFiscais.filter(nf => !(nf.serie === serie && nf.nfNumero === nfNumero && nf.remetenteCNPJ === remetenteCNPJ && nf.remetenteRazaoSocial === remetenteRazaoSocial && nf.destinatarioCNPJ === destinatarioCNPJ && nf.destinatarioRazaoSocial === destinatarioRazaoSocial));
             atualizarTabela();
         }
 
@@ -63,8 +63,8 @@ let notasFiscais = [];
             
             for (const destinatarioCNPJ in agrupadoPorDestinatario) {
                 const grupoNFs = agrupadoPorDestinatario[destinatarioCNPJ];
+                tabela.innerHTML += `<tr><td colspan="6" style="background-color: #e0e0e0; font-weight: bold;">${destinatarioCNPJ}</td></tr>`;
                 grupoNFs.forEach(nf => {
-                    tabela.innerHTML += `<tr><td colspan="6" style="background-color: #e0e0e0; font-weight: bold;">${nf.destinatarioRazaoSocial} (${destinatarioCNPJ})</td></tr>`;
                     const row = `<tr>
                         <td></td>
                         <td>${nf.nfNumero}</td>
@@ -73,7 +73,7 @@ let notasFiscais = [];
                         <td>${nf.peso}</td>
                         <td>${nf.valor}</td>
                         <td>${nf.quantidade}</td>
-                        <td id="invisivel"><button onclick="excluirNota('${nf.serie}', '${nf.nfNumero}', '${nf.destinatarioCNPJ}')">Excluir</button></td>
+                        <td id="invisivel"><button onclick="excluirNota('${nf.serie}', '${nf.nfNumero}', '${nf.remetenteCNPJ}', '${nf.remetenteRazaoSocial}', '${nf.destinatarioCNPJ}', '${nf.destinatarioRazaoSocial}')">Excluir</button></td>
                     </tr>`;
                     tabela.innerHTML += row;
                 });
