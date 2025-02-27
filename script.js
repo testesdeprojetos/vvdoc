@@ -44,8 +44,7 @@ let notasFiscais = [];
             fecharModal();
         }
 
-        function excluirNota(serieExcluir, nfNumeroExcluir, remetenteCNPJExcluir, remetenteRazaoSocialExcluir, destinatarioCNPJExcluir, destinatarioRazaoSocialExcluir, valorExcluir, quantidadeExcluir, pesoExcluir) {
-            
+        function excluirNota(serieExcluir, nfNumeroExcluir, remetenteCNPJExcluir, remetenteRazaoSocialExcluir, destinatarioCNPJExcluir, destinatarioRazaoSocialExcluir) {
             notasFiscais = notasFiscais.filter(nf => !(nf.serie === serieExcluir && nf.nfNumero === nfNumeroExcluir && nf.remetenteCNPJ === remetenteCNPJExcluir && nf.remetenteRazaoSocial === remetenteRazaoSocialExcluir && nf.destinatarioCNPJ === destinatarioCNPJExcluir && nf.destinatarioRazaoSocial === destinatarioRazaoSocialExcluir));
             atualizarTabela();
         }
@@ -68,13 +67,13 @@ let notasFiscais = [];
                 grupoNFs.forEach(nf => {
                     const row = `<tr>
                         <td></td>
-                        <td>${nf.nfNumero}</td>
-                        <td>${nf.remetenteRazaoSocial} (${nf.remetenteCNPJ})</td>
-                        <td>${nf.destinatarioRazaoSocial} (${nf.destinatarioCNPJ})</td>
-                        <td>${nf.quantidade}</td>
-                        <td>${nf.peso} Kg</td>
-                        <td>${nf.valor}</td>
-                        <td id="invisivel"><button onclick="excluirNota('${nf.serie}', '${nf.nfNumero}', '${nf.remetenteCNPJ}', '${nf.remetenteRazaoSocial}', '${nf.destinatarioCNPJ}', '${nf.destinatarioRazaoSocial}', '${nf.valor}', '${nf.quantidade}', '${nf.peso}')">Excluir</button></td>
+                        <td contenteditable="true">${nf.nfNumero}</td>
+                        <td contenteditable="true">${nf.remetenteRazaoSocial} (${nf.remetenteCNPJ})</td>
+                        <td contenteditable="true">${nf.destinatarioRazaoSocial} (${nf.destinatarioCNPJ})</td>
+                        <td contenteditable="true">${nf.quantidade}</td>
+                        <td contenteditable="true">${nf.peso} Kg</td>
+                        <td contenteditable="true">${nf.valor}</td>
+                        <td id="invisivel"><button onclick="excluirNota('${nf.serie}', '${nf.nfNumero}', '${nf.remetenteCNPJ}', '${nf.remetenteRazaoSocial}', '${nf.destinatarioCNPJ}', '${nf.destinatarioRazaoSocial}')">Excluir</button></td>
                     </tr>`;
                     tabela.innerHTML += row;
                 });
