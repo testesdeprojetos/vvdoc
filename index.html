@@ -22,7 +22,17 @@
 
         <h2>Número: <input type="text" placeholder="000" style="border: none;"></h2>
         
-        <button onclick="abrirModalSelMotorista()">Selecionar Motorista</button>
+    <div class="campoAssinatura">
+        <div class="assinaturaDIV">
+            <button class="assinatura" onclick="abrirModalSelMotorista()">Selecionar Motorista</button>
+        </div>
+        <div class="assinaturaDIV">
+            <button class="assinatura" onclick="abrirModalSelAjudante()">Selecionar Ajudante</button>
+        </div>
+        <div class="assinaturaDIV">
+            <button class="assinatura" onclick="abrirModalSelMotorista()">Selecionar Motorista</button>
+        </div>
+    </div>
 
         <table class="cadastroNossosDados">
             <tr>
@@ -34,44 +44,26 @@
                 </span></td>
             </tr>
             <tr>
-                <td  class="cadastroNossosDados"><strong>Endereço:</strong> <span contenteditable="true" id="endereco">
+                <td class="cadastroNossosDados"><strong>Ajudante(s):</strong> <span contenteditable="true" id="ajudante">
                     <input type="text" class="inputInformacoes" placeholder="Inserir endereço do motorista">
                 </span></td> 
                 <td class="cadastroNossosDados"><strong>Veículo:</strong> <span contenteditable="true" id="veiculo">
                     <input type="text" class="inputInformacoes" placeholder="Inserir placa do veículo">
                 </span></td>
-            </tr>
-            <tr>
-                <td class="cadastroNossosDados"><strong>Habilitação:</strong> <span contenteditable="true" id="habilitacao">
-                    <input type="text" class="inputInformacoes" placeholder="Inserir habilitação do motorista">
-                </span></td>
-                <td class="cadastroNossosDados"><strong>Prop. do Veículo:</strong> <span contenteditable="true" id="proprietario">
-                    <input type="text" class="inputInformacoes" placeholder="Inserir proprietário do veículo">
-                </span></td>
-            </tr>
-            <tr>
-                <td class="cadastroNossosDados"><strong>CPF:</strong> <span contenteditable="true" id="cpf">
-                    <input type="text" class="inputInformacoes" placeholder="Inserir CPF do motorista">
-                </span></td>
-                <td class="cadastroNossosDados"><strong>Telefone:</strong> <span contenteditable="true" id="telefone">
-                    <input type="text" class="inputInformacoes" placeholder="Inserir telefone para contato">
-                </span></td>
-            </tr>   
+            </tr>  
         </table>
 
         <hr>
         
-        <h3>Notas Fiscais Registradas</h3>
+        <h3>Notas Fiscais</h3>
         <table>
             <thead>
-                <tr>
-                    <th style="width: 100px;"></th>
+                <tr class="list">
+                    <th>CTe</th>
                     <th>Número da NF</th>
                     <th>Remetente</th>
                     <th>Destinatário</th>
                     <th>Volumes</th>
-                    <th>Kg Real</th>
-                    <th>Valor</th>
                 </tr>
             </thead>
             <tbody id="tabelaNFs"></tbody>
@@ -113,11 +105,11 @@
         <h3>Inserir Dados da Nota Fiscal</h3>
         <div class="row">
             <div>
-                <label>Número de Série da NF</label>
-                <input type="text" id="serie" class="small-input">
+                <label>CTe</label>
+                <input type="text" id="cte" class="small-input">
             </div>
             <div>
-                <label>Número da NF</label>
+                <label>NF</label>
                 <input type="text" id="nfNumero">
             </div>
         </div>
@@ -129,12 +121,8 @@
         <input type="text" id="destinatario">
         <label>Razão Social (do Destinatário)</label>
         <input type="text" id="destinatarioRazaoSocial">
-        <label>Valor</label>
-        <input type="number" id="valor">
         <label>Quantidade de Volumes</label>
         <input type="text" id="quantidade">
-        <label>Peso</label>
-        <input type="text" id="peso">
         
         <div class="modal-buttons">
             <button onclick="salvarDados()">Salvar</button>
@@ -143,7 +131,6 @@
     </div>
 
     <div id="modalSelMotorista" class="modal">
-        <h3>Selecione o motorista:</h3>
         <select id="selecaoMotorista">
             <option value="0">Selecione um motorista</option>
             <option value="1">Edvaldo</option>
@@ -154,6 +141,29 @@
 
         <button onclick="salvarSelMotorista()">Selecionar</button>
         <button onclick="fecharModalSelMotorista()">Cancelar</button>
+    </div>
+
+    <div id="modalSelAjudante" class="modal">
+        <legend>Selecione o(s) ajudante(s):</legend>
+        <div>
+            <label for="andre">André</label>
+            <input type="checkbox" id="andre" name="interest" value="andre" checked />
+          </div>
+        <div>
+            <label for="julio">Julio</label>
+            <input type="checkbox" id="julio" name="interest" value="julio" checked />
+        </div>
+        <div>
+            <label for="roberto">Roberto</label>
+            <input type="checkbox" id="roberto" name="interest" value="roberto" />
+          </div>
+        <div>
+            <label for="weslley">Weslley</label>
+          <input type="checkbox" id="weslley" name="interest" value="weslley" />
+        </div> 
+
+        <button onclick="salvarSelAjudante()">Salvar</button>
+        <button onclick="fecharModalSelAjudante()">Cancelar</button>
     </div>
 
     <div id="modalEditarNota" class="modal">

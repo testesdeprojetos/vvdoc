@@ -22,30 +22,26 @@ let notasFiscais = [];
 
         function salvarDados() {
 
-            const serie = document.getElementById('serie').value;
+            const cte = document.getElementById('cte').value;
             const nfNumero = document.getElementById('nfNumero').value;
-            const remetenteCNPJ = formatarCNPJ(document.getElementById('remetente').value);
-            const remetenteRazaoSocial = document.getElementById('remetenteRazaoSocial').value;
-            const destinatarioCNPJ = formatarCNPJ(document.getElementById('destinatario').value);
-            const destinatarioRazaoSocial = document.getElementById('destinatarioRazaoSocial').value;
-            const valor = formatarMoeda(document.getElementById('valor').value);
+            const remetente = document.getElementById('remetenteRazaoSocial').value;
+            const destinatario = document.getElementById('destinatarioRazaoSocial').value;
             const quantidade = document.getElementById('quantidade').value;
-            const peso = document.getElementById('peso').value;
 
-            if (notasFiscais.some(nf => nf.serie === serie && nf.nfNumero === nfNumero && nf.remetenteCNPJ === remetenteCNPJ && nf.remetenteRazaoSocial === remetenteRazaoSocial && nf.destinatarioCNPJ === destinatarioCNPJ && nf.destinatarioRazaoSocial === destinatarioRazaoSocial)) {
+            if (notasFiscais.some(nf => nf.cte === cte && nf.nfNumero === nfNumero && nf.remetente === remetente && nf.destinatario === destinatario)) {
                 
                 alert("Nota fiscal já inserida!");
                 return;
             }
 
-            const novaNF = { serie, nfNumero, remetenteCNPJ, remetenteRazaoSocial, destinatarioCNPJ, destinatarioRazaoSocial, valor, quantidade, peso };
+            const novaNF = { cte, nfNumero, remetente, destinatario, quantidade};
             notasFiscais.push(novaNF);
             atualizarTabela();
             fecharModal();
         }
 
-        function excluirNota(serieExcluir, nfNumeroExcluir, remetenteCNPJExcluir, remetenteRazaoSocialExcluir, destinatarioCNPJExcluir, destinatarioRazaoSocialExcluir) {
-            notasFiscais = notasFiscais.filter(nf => !(nf.serie === serieExcluir && nf.nfNumero === nfNumeroExcluir && nf.remetenteCNPJ === remetenteCNPJExcluir && nf.remetenteRazaoSocial === remetenteRazaoSocialExcluir && nf.destinatarioCNPJ === destinatarioCNPJExcluir && nf.destinatarioRazaoSocial === destinatarioRazaoSocialExcluir));
+        function excluirNota(cteExcluir, nfNumeroExcluir, remetenteExcluir, destinatarioExcluir) {
+            notasFiscais = notasFiscais.filter(nf => !(nf.cte === cteExcluir && nf.nfNumero === nfNumeroExcluir && nf.remetente === remetenteExcluir && nf.destinatario === destinatarioExcluir));
             atualizarTabela();
         }
 
@@ -53,27 +49,25 @@ let notasFiscais = [];
             const tabela = document.getElementById("tabelaNFs");
             tabela.innerHTML = "";
             
-            const agrupadoPorDestinatario = {};
+            const agrupadoPorCTE = {};
             notasFiscais.forEach(nf => {
-                if (!agrupadoPorDestinatario[nf.destinatarioRazaoSocial]) {
-                    agrupadoPorDestinatario[nf.destinatarioRazaoSocial] = [];
+                if (!agrupadoPorCTE[nf.cte]) {
+                    agrupadoPorCTE[nf.cte] = [];
                 }
-                agrupadoPorDestinatario[nf.destinatarioRazaoSocial].push(nf);
+                agrupadoPorCTE[nf.cte].push(nf);
             });
             
-            for (const dest in agrupadoPorDestinatario) {
-                const grupoNFs = agrupadoPorDestinatario[dest];
-                tabela.innerHTML += `<tr><td colspan="6" style="background-color: #e0e0e0; font-weight: bold;">${dest}</td></tr>`;
+            for (const conhecimento in agrupadoPorCTE) {
+                const grupoNFs = agrupadoPorCTE[conhecimento];
+                tabela.innerHTML += `<tr><td colspan="6" style="background-color: #e0e0e0; font-weight: bold;">${conhecimento}</td></tr>`;
                 grupoNFs.forEach(nf => {
-                    const row = `<tr>
+                    const row = `<tr class="list">
                         <td></td>
-                        <td contenteditable="true">${nf.nfNumero}</td>
-                        <td contenteditable="true">${nf.remetenteRazaoSocial} (${nf.remetenteCNPJ})</td>
-                        <td contenteditable="true">${nf.destinatarioRazaoSocial} (${nf.destinatarioCNPJ})</td>
-                        <td contenteditable="true">${nf.quantidade}</td>
-                        <td contenteditable="true">${nf.peso} Kg</td>
-                        <td contenteditable="true">${nf.valor}</td>
-                        <td id="invisivel"><button onclick="excluirNota('${nf.serie}', '${nf.nfNumero}', '${nf.remetenteCNPJ}', '${nf.remetenteRazaoSocial}', '${nf.destinatarioCNPJ}', '${nf.destinatarioRazaoSocial}')">Excluir</button></td>
+                        <td contenteditable="true" class="list">${nf.nfNumero}</td>
+                        <td contenteditable="true" class="list">${nf.remetente}</td>
+                        <td contenteditable="true" class="list">${nf.destinatario}</td>
+                        <td contenteditable="true" class="list">${nf.quantidade}</td>
+                        <td id="invisivel"><button onclick="excluirNota('${nf.cte}', '${nf.nfNumero}', '${nf.remetente}', '${nf.destinatario}')">Excluir</button></td>
                     </tr>`;
                     tabela.innerHTML += row;
                 });
@@ -104,6 +98,7 @@ let notasFiscais = [];
         }
 
 
+
         function abrirModalSelMotorista(){
             document.getElementById('modalSelMotorista').style.display = 'block';
         }
@@ -112,47 +107,74 @@ let notasFiscais = [];
             document.getElementById('modalSelMotorista').style.display = 'none';
         }
 
+
+
         function salvarSelMotorista(){
             const motoristaSelecionado = document.getElementById('selecaoMotorista').value;
             const nomeMotorista = document.getElementById('motorista');
-            const enderecoMotorista = document.getElementById('endereco');
-            const habilitacaoMotorista = document.getElementById('habilitacao');
-            const cpfMotorista = document.getElementById('cpf');
 
             switch(motoristaSelecionado) {
                 case '0':
                     window.alert("Ops, você não selecionou um motorista...");
                 break;
                 case '1':
-                    nomeMotorista.textContent = "Edvaldo";
-                    enderecoMotorista.textContent = "Rua Consuelo Leandro Dutra, nº 345 - Jaboatão dos Guararapes/PE";
-                    habilitacaoMotorista.textContent = "";
-                    cpfMotorista.textContent = "";
-                    
+                    nomeMotorista.textContent = "Edvaldo";                    
                     fecharModalSelMotorista()
                 break;
                 case '2':
                     nomeMotorista.textContent = "Josinaldo";
-                    enderecoMotorista.textContent = "Rua Consuelo Leandro Dutra, nº 345 - Jaboatão dos Guararapes/PE";
-                    habilitacaoMotorista.textContent = "";
-                    cpfMotorista.textContent = "";
-                    
                     fecharModalSelMotorista()
                 break;
                 case '3':
                     nomeMotorista.textContent = "Jose Wilson Sales da Silva";
-                    enderecoMotorista.textContent = "Rua Consuelo Leandro Dutra, nº 345 - Jaboatão dos Guararapes/PE";
-                    habilitacaoMotorista.textContent = "2761201062/AE";
-                    cpfMotorista.textContent = "041.561.634-40";
-                    
                     fecharModalSelMotorista()
                 break;
                 case '4':
                     nomeMotorista.textContent = "Filipe Viana Paiva";
-                    enderecoMotorista.textContent = "Rua Consuelo Leandro Dutra, nº 345 - Jaboatão dos Guararapes/PE";
-                    habilitacaoMotorista.textContent = "";
-                    cpfMotorista.textContent = "709.236.094-31";
                     fecharModalSelMotorista()
+                break;
+                default:
+                    window.alert("nada");
+            }
+        }
+
+
+
+        function abrirModalSelAjudante(){
+            document.getElementById('modalSelAjudante').style.display = 'block';
+        }
+
+        function fecharModalSelAjudante(){
+            document.getElementById('modalSelAjudante').style.display = 'none';
+        }
+
+
+const ajudanteSelecionado = [];
+
+        function salvarSelAjudante(){
+            const nomeAjudante = document.getElementById('ajudante');
+
+            ajudanteSelecionado = document.getElementsByClassName('ajudantes').value;
+
+            switch(motoristaSelecionado) {
+                case '0':
+                    window.alert("Ops, você não selecionou um motorista...");
+                break;
+                case '1':
+                    nomeAjudante.textContent = "";                    
+                    fecharModalSelAjudante();
+                break;
+                case '2':
+                    nomeAjudante.textContent = "";                    
+                    fecharModalSelAjudante();
+                break;
+                case '3':
+                    nomeAjudante.textContent = "";
+                    fecharModalSelAjudante();
+                break;
+                case '4':
+                    nomeAjudante.textContent = "";                    
+                    fecharModalSelAjudante();
                 break;
                 default:
                     window.alert("nada");
