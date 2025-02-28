@@ -76,7 +76,7 @@ let notasFiscais = [];
 
 
 
-        function gerarDocumento(){
+        function imprimirDocumento(){
             
             const containerDIV = document.getElementById("container");
 
