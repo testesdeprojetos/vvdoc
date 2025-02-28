@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+
     <div id="container">
 
         <img id="logo" src="./sources/viaverdelogo.png">
@@ -27,34 +28,35 @@
             <button class="assinatura" onclick="abrirModalSelMotorista()">Selecionar Motorista</button>
         </div>
         <div class="assinaturaDIV">
-            <button class="assinatura" onclick="abrirModalSelAjudante()">Selecionar Ajudante</button>
+            <button class="assinatura" onclick="abrirModalSelAjudante()">Selecionar Ajudante(s)</button>
         </div>
         <div class="assinaturaDIV">
-            <button class="assinatura" onclick="abrirModalSelMotorista()">Selecionar Motorista</button>
+            <button class="assinatura" onclick="abrirModalSelVeiculo()">Selecionar Veículo</button>
         </div>
     </div>
 
-        <table class="cadastroNossosDados">
-            <tr>
-                <td class="cadastroNossosDados"><strong>Motorista:</strong> <span contenteditable="true" id="motorista">
-                    <input type="text" class="inputInformacoes" placeholder="Inserir nome do motorista">
-                </span></td>
-                <td class="cadastroNossosDados"><strong>Data da Viagem:</strong> <span contenteditable="true" id="dataViagem">
-                    <input type="date" class="inputInformacoes" placeholder="Inserir data">
-                </span></td>
-            </tr>
-            <tr>
-                <td class="cadastroNossosDados"><strong>Ajudante(s):</strong> <span contenteditable="true" id="ajudante">
-                    <input type="text" class="inputInformacoes" placeholder="Inserir endereço do motorista">
-                </span></td> 
-                <td class="cadastroNossosDados"><strong>Veículo:</strong> <span contenteditable="true" id="veiculo">
-                    <input type="text" class="inputInformacoes" placeholder="Inserir placa do veículo">
-                </span></td>
-            </tr>  
-        </table>
+    <div class="bordas">
+        <div style="float: left; width: 100%; max-width: 300px;">
+            <div class="cadastroNossosDados"><strong>Motorista:</strong>
+                <input type="text" contenteditable="true" id="motorista" class="inputInformacoes" placeholder="Inserir nome do motorista">
+            </div>
+            <div class="cadastroNossosDados"><strong id="ajudanteTitulo">Ajudante(s):</strong>
+                <input type="text" contenteditable="true" id="ajudante" class="inputInformacoes" placeholder="Inserir endereço do motorista">
+            </div>
+        </div>
+        <div style="float: right; width: 100%; max-width: 300px;">
+            <div class="cadastroNossosDados"><strong>Data da Viagem:</strong>
+                <input type="date" contenteditable="true" id="dataViagem" class="inputInformacoes" placeholder="Inserir data">
+            </div>
+            <div class="cadastroNossosDados"><strong>Veículo:</strong>
+                <input type="text" contenteditable="true" id="veiculo" class="inputInformacoes" placeholder="Inserir placa do veículo">
+            </div>
+        </div>
+    </div>
+    
+    <hr style="width: 100%; margin-top: 10px;">
 
-        <hr>
-        
+    <div class="bordas">
         <h3>Notas Fiscais</h3>
         <table>
             <thead>
@@ -77,9 +79,11 @@
             e suas respectivas notas fiscais,
             referidas na tabela acima,
             para fins de conferência.</h4>
+    </div>
         
-        <h3>Assinaturas:</h3>
         <div id="campoAssinatura">
+            <h3>Assinaturas:</h3>
+        
             <div class="assinaturaDIV">
                 <p class="assinatura">________________________________</p>
                 <p class="assinatura">Assinatura Motorista</p>
@@ -95,10 +99,9 @@
         </div>
         
             
-            
         
-        <button onclick="gerarDocumento()">Imprimir</button>
-
+        <button onclick="imprimirDocumento()">Imprimir</button>
+        
     </div>
 
     <div id="modal" class="modal">
@@ -145,25 +148,63 @@
 
     <div id="modalSelAjudante" class="modal">
         <legend>Selecione o(s) ajudante(s):</legend>
+        
+        <div>
+            <label for="nenhum  ">Nenhum</label>
+          <input type="checkbox" id="nenhum" name="interest" value="Nenhum" onclick="marcarNenhum()"/>
+        </div> 
         <div>
             <label for="andre">André</label>
-            <input type="checkbox" id="andre" name="interest" value="andre" checked />
+            <input type="checkbox" id="andre" name="interest" value="André" onclick="desmarcarNenhum()"/>
           </div>
         <div>
             <label for="julio">Julio</label>
-            <input type="checkbox" id="julio" name="interest" value="julio" checked />
+            <input type="checkbox" id="julio" name="interest" value="Júlio" onclick="desmarcarNenhum()"/>
         </div>
         <div>
             <label for="roberto">Roberto</label>
-            <input type="checkbox" id="roberto" name="interest" value="roberto" />
-          </div>
+            <input type="checkbox" id="roberto" name="interest" value="Roberto" onclick="desmarcarNenhum()"/>
+        </div>
         <div>
             <label for="weslley">Weslley</label>
-          <input type="checkbox" id="weslley" name="interest" value="weslley" />
-        </div> 
+          <input type="checkbox" id="weslley" name="interest" value="Weslley" onclick="desmarcarNenhum()"/>
+        </div>
 
         <button onclick="salvarSelAjudante()">Salvar</button>
         <button onclick="fecharModalSelAjudante()">Cancelar</button>
+    </div>
+
+    <div id="modalSelVeiculo" class="modal">
+        <legend>Selecione o veículo:</legend>
+        
+        <div>
+            <label for="vw" class="alinhamento">Volks</label>
+            <input type="checkbox" class="alinhamento" id="vw" value="Voks" onclick="desmarcarVeiculos('vw')">
+        </div> 
+        <div>
+            <label for="mbenz" class="alinhamento">Mercedez</label>
+            <input type="checkbox" class="alinhamento" id="mbenz" value="Mercedez" onclick="desmarcarVeiculos('mbenz')">
+          </div>
+        <div>
+            <label for="hr1" class="alinhamento">HR 1</label>
+            <input type="checkbox" class="alinhamento" id="hr1" value="HR 1" onclick="desmarcarVeiculos('hr1')">
+        </div>
+        <div>
+            <label for="hr2" class="alinhamento">HR 2</label>
+            <input type="checkbox" class="alinhamento" id="hr2" value="HR 2" onclick="desmarcarVeiculos('hr2')">
+        </div>
+        <div>
+            <label for="fiorino" class="alinhamento">Fiorino</label>
+            <input type="checkbox" class="alinhamento" id="fiorino" value="Fiorino" onclick="desmarcarVeiculos('fiorino')">
+        </div>
+        <div>
+            <label for="outroVeiculo" class="alinhamento">Outro</label>
+            <input type="checkbox" class="alinhamento" id="outroVeiculo" value="Outro" onclick="marcarOutroVeiculo()">
+            <input type="text" id="outroVeiculoInput" style="display: none;"  class="alinhamento">
+        </div>
+
+        <button onclick="salvarSelVeiculo()">Salvar</button>
+        <button onclick="fecharModalSelVeiculo()">Cancelar</button>
     </div>
 
     <div id="modalEditarNota" class="modal">

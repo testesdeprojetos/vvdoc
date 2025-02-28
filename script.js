@@ -100,6 +100,8 @@ let notasFiscais = [];
 
 
         function abrirModalSelMotorista(){
+            fecharModalSelAjudante();
+            fecharModalSelVeiculo();
             document.getElementById('modalSelMotorista').style.display = 'block';
         }
 
@@ -141,6 +143,8 @@ let notasFiscais = [];
 
 
         function abrirModalSelAjudante(){
+            fecharModalSelVeiculo();
+            fecharModalSelMotorista();
             document.getElementById('modalSelAjudante').style.display = 'block';
         }
 
@@ -148,35 +152,90 @@ let notasFiscais = [];
             document.getElementById('modalSelAjudante').style.display = 'none';
         }
 
-
-const ajudanteSelecionado = [];
+let ajudantes = [];
 
         function salvarSelAjudante(){
             const nomeAjudante = document.getElementById('ajudante');
+            
+            const nenhum = document.getElementById('nenhum');
+            const andre = document.getElementById('andre');
+            const julio = document.getElementById('julio');
+            const roberto = document.getElementById('roberto');
+            const weslley = document.getElementById('weslley');
 
-            ajudanteSelecionado = document.getElementsByClassName('ajudantes').value;
+            ajudantes = [];
 
-            switch(motoristaSelecionado) {
-                case '0':
-                    window.alert("Ops, você não selecionou um motorista...");
-                break;
-                case '1':
-                    nomeAjudante.textContent = "";                    
-                    fecharModalSelAjudante();
-                break;
-                case '2':
-                    nomeAjudante.textContent = "";                    
-                    fecharModalSelAjudante();
-                break;
-                case '3':
-                    nomeAjudante.textContent = "";
-                    fecharModalSelAjudante();
-                break;
-                case '4':
-                    nomeAjudante.textContent = "";                    
-                    fecharModalSelAjudante();
-                break;
-                default:
-                    window.alert("nada");
+            if (nenhum.checked) {
+                andre.checked = false;
+                julio.checked = false;
+                roberto.checked = false;
+                weslley.checked = false;
+                ajudantes.push("Nenhum");
+            } else {
+                if (andre.checked) ajudantes.push(andre.value);
+                if (julio.checked) ajudantes.push(julio.value);
+                if (roberto.checked) ajudantes.push(roberto.value);
+                if (weslley.checked) ajudantes.push(weslley.value);    
+            }
+
+            nomeAjudante.textContent = ajudantes.join(", ");
+            fecharModalSelAjudante();
+        }
+
+        function desmarcarNenhum() {
+            document.getElementById('nenhum').checked = false;
+        }
+
+        function marcarNenhum() {
+            document.getElementById('andre').checked = false;
+            document.getElementById('julio').checked = false;
+            document.getElementById('roberto').checked = false;
+            document.getElementById('weslley').checked = false;
+        }
+
+
+        function abrirModalSelVeiculo() {
+            fecharModalSelAjudante();
+            fecharModalSelMotorista();
+            document.getElementById('modalSelVeiculo').style.display = 'block';
+        }
+
+        function fecharModalSelVeiculo() {
+            document.getElementById('modalSelVeiculo').style.display = 'none';
+        }
+
+let veiculoMarcado;
+
+        function desmarcarVeiculos(veiculo) {
+
+            let veiculos = ['vw', 'mbenz', 'hr1', 'hr2', 'fiorino', 'outroVeiculo'];
+            const veiculoSelecionado = document.getElementById(veiculo).value;
+            const outroVeiculoInput = document.getElementById('outroVeiculoInput');
+
+            veiculoMarcado = veiculoSelecionado;
+
+            veiculos.forEach(v => {
+                if (v !== veiculo){
+                    document.getElementById(v).checked = false;
+                    outroVeiculoInput.style.display = 'none';
+                }
+            });
+
+            
+            if (veiculo == 'outroVeiculo'){
+                outroVeiculoInput.style.display = 'block';
             }
         }
+
+        function marcarOutroVeiculo() {
+            desmarcarVeiculos('outroVeiculo');
+            document.getElementById('outroVeiculoInput').style.display = 'block';
+        }
+
+        function salvarSelVeiculo() {
+            veiculoMarcado = document.getElementById('outroVeiculoInput').value;
+            window.alert(veiculoMarcado);
+            document.getElementById('veiculo').value = veiculoMarcado;
+            fecharModalSelVeiculo();
+        }
+        
