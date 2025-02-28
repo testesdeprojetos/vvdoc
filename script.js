@@ -24,8 +24,8 @@ let notasFiscais = [];
 
             const cte = document.getElementById('cte').value;
             const nfNumero = document.getElementById('nfNumero').value;
-            const remetente = document.getElementById('remetenteRazaoSocial').value;
-            const destinatario = document.getElementById('destinatarioRazaoSocial').value;
+            const remetente = document.getElementById('remetente').value;
+            const destinatario = document.getElementById('destinatario').value;
             const quantidade = document.getElementById('quantidade').value;
 
             if (notasFiscais.some(nf => nf.cte === cte && nf.nfNumero === nfNumero && nf.remetente === remetente && nf.destinatario === destinatario)) {
@@ -120,19 +120,19 @@ let notasFiscais = [];
                     window.alert("Ops, você não selecionou um motorista...");
                 break;
                 case '1':
-                    nomeMotorista.textContent = "Edvaldo";                    
+                    nomeMotorista.value = 'Edvaldo Costa da Cunha';                    
                     fecharModalSelMotorista()
                 break;
                 case '2':
-                    nomeMotorista.textContent = "Josinaldo";
+                    nomeMotorista.value = "Josinaldo Antônio do Nascimento";
                     fecharModalSelMotorista()
                 break;
                 case '3':
-                    nomeMotorista.textContent = "Jose Wilson Sales da Silva";
+                    nomeMotorista.value = "Jose Wilson Sales da Silva";
                     fecharModalSelMotorista()
                 break;
                 case '4':
-                    nomeMotorista.textContent = "Filipe Viana Paiva";
+                    nomeMotorista.value = "Filipe Viana Paiva";
                     fecharModalSelMotorista()
                 break;
                 default:
@@ -178,7 +178,7 @@ let ajudantes = [];
                 if (weslley.checked) ajudantes.push(weslley.value);    
             }
 
-            nomeAjudante.textContent = ajudantes.join(", ");
+            nomeAjudante.value = ajudantes.join(", ");
             fecharModalSelAjudante();
         }
 
@@ -205,6 +205,7 @@ let ajudantes = [];
         }
 
 let veiculoMarcado;
+let outro;
 
         function desmarcarVeiculos(veiculo) {
 
@@ -218,12 +219,14 @@ let veiculoMarcado;
                 if (v !== veiculo){
                     document.getElementById(v).checked = false;
                     outroVeiculoInput.style.display = 'none';
+                    outro = false;
                 }
             });
 
             
             if (veiculo == 'outroVeiculo'){
                 outroVeiculoInput.style.display = 'block';
+                outro = true;
             }
         }
 
@@ -233,8 +236,13 @@ let veiculoMarcado;
         }
 
         function salvarSelVeiculo() {
-            veiculoMarcado = document.getElementById('outroVeiculoInput').value;
-            window.alert(veiculoMarcado);
+            if (outro === true){
+                veiculoMarcado = document.getElementById('outroVeiculoInput').value;
+                if (veiculoMarcado == ""){
+                    window.alert("Veículo em branco!");
+                }
+            }
+            
             document.getElementById('veiculo').value = veiculoMarcado;
             fecharModalSelVeiculo();
         }
