@@ -246,4 +246,8 @@ let outro;
             document.getElementById('veiculo').value = veiculoMarcado;
             fecharModalSelVeiculo();
         }
+
+        function limparDocumento() {
+            window.location.reload();
+        }
         
