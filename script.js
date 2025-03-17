@@ -1,5 +1,9 @@
 let notasFiscais = [];
 
+        const d = new Date();
+        let ano = d.getFullYear();
+        document.getElementById('dataViagem').innerHTML = `_____/_____/ ${ano}`
+
         function abrirModal() {
             document.getElementById('modal').style.display = 'block';
         }
