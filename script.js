@@ -159,7 +159,7 @@ let ajudantes = [];
             
             const nenhum = document.getElementById('nenhum');
             const andre = document.getElementById('andre');
-            const julio = document.getElementById('julio');
+            const tiago = document.getElementById('tiago');
             const roberto = document.getElementById('roberto');
             const weslley = document.getElementById('weslley');
 
@@ -167,13 +167,13 @@ let ajudantes = [];
 
             if (nenhum.checked) {
                 andre.checked = false;
-                julio.checked = false;
+                tiago.checked = false;
                 roberto.checked = false;
                 weslley.checked = false;
                 ajudantes.push("Nenhum");
             } else {
                 if (andre.checked) ajudantes.push(andre.value);
-                if (julio.checked) ajudantes.push(julio.value);
+                if (tiago.checked) ajudantes.push(tiago.value);
                 if (roberto.checked) ajudantes.push(roberto.value);
                 if (weslley.checked) ajudantes.push(weslley.value);    
             }
@@ -188,7 +188,7 @@ let ajudantes = [];
 
         function marcarNenhum() {
             document.getElementById('andre').checked = false;
-            document.getElementById('julio').checked = false;
+            document.getElementById('tiago').checked = false;
             document.getElementById('roberto').checked = false;
             document.getElementById('weslley').checked = false;
         }
